@@ -1,52 +1,69 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jthomas <jthomas@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/03/05 17:05:47 by jthomas           #+#    #+#             */
+/*   Updated: 2023/03/05 18:04:52 by jthomas          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "get_next_line.h"
+#include <stdlib.h>
+#include <unistd.h>
 
-char    *get_next_line(int fd)
+int	main(int argc, char **args)
 {
-	char    *buffer;
-	char    *line;
-	int     b;
-	int     i;
-	int     newline;
+	char	*line;
+	int		fd;
 
-	buffer = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
-	if (!buffer)
-		return (NULL);
+	if (argc != 2)
+		return (0);
+	fd = open(args[1], O_RDONLY);
+	while ((line = get_next_line(fd)))
+	{
+		printf("line: %s\n", line);
+		free(line);
+	}
+	return (0);
+}
+
+char	*get_next_line(int fd)
+{
+	static char	*buffer;
+	char		*line;
+	int			ret;
+	int			index;
+
 	line = (char *)malloc(sizeof(char));
 	if (!line)
-	{
-		free(buffer);
 		return (NULL);
-	}
 	line[0] = '\0';
-	newline = 0;
-	while ((b = read(fd, buffer, BUFFER_SIZE)) > 0)
+	while (1)
 	{
-		buffer[b] = '\0';
-		i = 0;
-		while (buffer[i])
+		if (!buffer || buffer[0] == '\0')
 		{
-			if (buffer[i] == '\n') {
-				newline = 1;
+			buffer = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
+			if (!buffer)
+				return (NULL);
+			ret = read(fd, buffer, BUFFER_SIZE);
+			if (ret <= 0)
+			{
+				free(buffer);
+				return (*line ? line : NULL);
 			}
-			line = (char *)realloc(line, sizeof(char) * (ft_strlen(line) + 2));
-			line[ft_strlen(line) + 1] = '\0';
-			line[ft_strlen(line)] = buffer[i];
-			i++;
+			buffer[ret] = '\0';
 		}
-		if (newline)
-			break ;
+		index = ft_check_newline(buffer);
+		if (index >= 0)
+		{
+			line = ft_strjoin(line, ft_strndup(buffer, index));
+			buffer = ft_strndup(buffer + index + 1, ft_strlen(buffer + index + 1));
+			return (line);
+		}
+		line = ft_strjoin(line, buffer);
+		buffer[0] = '\0';
 	}
-	printf("line: %s", line);
-	free(buffer);
-	if (b < 0)
-	{
-		free(line);
-		return (NULL);
-	}
-	else if (b == 0 && ft_strlen(line) == 0)
-	{
-		free(line);
-		return (NULL);
-	}
-	return (line);
 }
