@@ -54,9 +54,5 @@ dkms.conf
 # CLion
 .idea/
 
-# Test files
-main.c
-test.cmd
-
 # CMake
 cmake-build-debug/
