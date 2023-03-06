@@ -29,7 +29,7 @@ int get_next_line_test(int fd, char *expected, char *test_name)
 		line = "NULL";
 	if (expected == NULL)
 		expected = "NULL";
-	if (ft_memcmp(line, expected, ft_strlen(expected)) != 0)
+	if (ft_memcmp(line, expected, ft_strlen(expected)) != 0 || ft_strlen(line) != ft_strlen(expected))
 	{
 		printf("%sKO%s : %s\nExpected: %s\nGot: %s\n", BOLDRED, RESET, test_name, expected, line);
 		return (0);

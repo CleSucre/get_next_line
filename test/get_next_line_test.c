@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_printf_tests.c                                  :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: jthomas <jthomas@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/05 15:52:39 by jthomas           #+#    #+#             */
-/*   Updated: 2023/03/05 15:53:30 by jthomas          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../get_next_line.h"
 #include "includes/colors.h"
 #include "includes/tester.h"
@@ -19,19 +7,19 @@ int	main(void)
 	int fd;
 	int success;
 
-	fd = open("test/data/data.txt", O_RDONLY);
+	fd = open("test/data/file_1.txt", O_RDONLY);
 	success = 0;
-	success += get_next_line_test(fd, "hello", "Line 1");
-	success += get_next_line_test(fd, "world", "Line 2");
-	success += get_next_line_test(fd, "this", "Line 3");
-	success += get_next_line_test(fd, "is", "Line 4");
-	success += get_next_line_test(fd, "a", "Line 5");
-	success += get_next_line_test(fd, "test", "Line 6");
-	success += get_next_line_test(fd, "file", "Line 7");
-	success += get_next_line_test(fd, "for", "Line 8");
-	success += get_next_line_test(fd, "get_next_line", "Line 9");
+	success += get_next_line_test(fd, "hello x y z", "Line 1");
+	success += get_next_line_test(fd, "world ded a", "Line 2");
+	success += get_next_line_test(fd, "this zz \\t", "Line 3");
+	success += get_next_line_test(fd, "is zdzdez", "Line 4");
+	success += get_next_line_test(fd, "a zd azd zefpzkll", "Line 5");
+	success += get_next_line_test(fd, "testferfr", "Line 6");
+	success += get_next_line_test(fd, "file   \"ffz\"", "Line 7");
+	success += get_next_line_test(fd, "forzcz", "Line 8");
+	success += get_next_line_test(fd, "get_ne  xt_line", "Line 9");
 	success += get_next_line_test(fd, "function", "Line 10");
-	success += get_next_line_test(fd, "in", "Line 11");
+	success += get_next_line_test(fd, "in  the                                 yo", "Line 11");
 	success += get_next_line_test(fd, "C", "Line 12");
 	success += get_next_line_test(fd, "language", "Line 13");
 	success += get_next_line_test(fd, "!", "Line 14");
@@ -39,9 +27,9 @@ int	main(void)
 	close(fd);
 	if (success != 15)
 	{
-		printf("%sget_next_line: %d/15 tests passed%s", BOLDRED, success, RESET);
+		printf("%sget_next_line: %d/15 tests passed%s\n", BOLDRED, success, RESET);
 		return (1);
 	}
-	printf("%sget_next_line: All %d tests passed%s", BOLDGREEN, success, RESET);
+	printf("%sget_next_line: All %d tests passed%s\n", BOLDGREEN, success, RESET);
 	return (0);
 }
