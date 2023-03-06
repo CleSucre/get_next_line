@@ -12,42 +12,7 @@
 
 #include "../get_next_line.h"
 #include "includes/colors.h"
-
-int	ft_strcmp(const char *s1, const char *s2)
-{
-	unsigned char	*cps1;
-	unsigned char	*cps2;
-
-	cps1 = (unsigned char *)s1;
-	cps2 = (unsigned char *)s2;
-	while ((*cps1 || *cps2))
-	{
-		if (*cps1 != *cps2)
-			return (*cps1 - *cps2);
-		cps1++;
-		cps2++;
-	}
-	return (0);
-}
-
-int get_next_line_test(int fd, char *expected, char *test_name)
-{
-	char *line;
-
-	line = get_next_line(fd);
-	if (!line || ft_strcmp(line, expected) != 0)
-	{
-		printf("%sKO%s : %s\n", BOLDRED, RESET, test_name);
-		printf("Expected: %s\n", expected);
-		printf("Got: %s\n", line);
-		return (0);
-	}
-	else
-	{
-		printf("%sOK%s : %s | %s got: %s\n", BOLDGREEN, RESET, test_name, expected, line);
-	}
-	return (1);
-}
+#include "includes/tester.h"
 
 int	main(void)
 {
@@ -72,7 +37,7 @@ int	main(void)
 	success += get_next_line_test(fd, "!", "Line 14");
 	success += get_next_line_test(fd, NULL, "Line 15");
 	close(fd);
-	if (success != 30)
+	if (success != 15)
 	{
 		printf("%sget_next_line: %d/15 tests passed%s", BOLDRED, success, RESET);
 		return (1);
