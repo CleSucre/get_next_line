@@ -34,5 +34,6 @@ typedef	struct {
 char		*get_next_line(int fd);
 file_data_t *ft_get_file_data(int fd, file_data_t **files_data);
 char		*ft_get_line(file_data_t *file_data, int get_last);
+int			ft_strlen(const char *s);
 
 #endif

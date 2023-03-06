@@ -28,7 +28,7 @@ char	*get_next_line(int fd)
 	{
 		ret = read(fd, file_data->buffer, BUFFER_SIZE);
 		file_data->buffer[ret] = '\0';
-		line = ft_get_line(file_data, 0);
+		line = ft_get_line(file_data, ret == 0);
 		if (line)
 		{
 			free(file_data->buffer);
