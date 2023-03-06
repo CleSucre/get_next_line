@@ -51,9 +51,9 @@ int	main(void)
 	close(file_3);
 	if (success != 33)
 	{
-		printf("%sget_next_line: %d/33 tests passed%s\n", BOLDRED, success, RESET);
+		printf("%sget_next_line_bonus: %d/33 tests passed%s\n", BOLDRED, success, RESET);
 		return (1);
 	}
-	printf("%sget_next_line: All %d tests passed%s\n", BOLDGREEN, success, RESET);
+	printf("%sget_next_line_bonus: All %d tests passed%s\n", BOLDGREEN, success, RESET);
 	return (0);
 }

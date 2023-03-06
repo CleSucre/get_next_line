@@ -34,9 +34,9 @@ int get_next_line_test(int fd, char *expected, char *test_name)
 		printf("%sKO%s : %s\nExpected: %s\nGot: %s\n", BOLDRED, RESET, test_name, expected, line);
 		return (0);
 	}
+	/*
 	else
-	{
 		printf("%sOK%s : %s | %s got: %s\n", BOLDGREEN, RESET, test_name, expected, line);
-	}
+	 */
 	return (1);
 }
