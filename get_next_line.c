@@ -11,59 +11,30 @@
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <stdlib.h>
-#include <unistd.h>
-
-int	main(int argc, char **args)
-{
-	char	*line;
-	int		fd;
-
-	if (argc != 2)
-		return (0);
-	fd = open(args[1], O_RDONLY);
-	while ((line = get_next_line(fd)))
-	{
-		printf("line: %s\n", line);
-		free(line);
-	}
-	return (0);
-}
 
 char	*get_next_line(int fd)
 {
-	static char	*buffer;
-	char		*line;
+	static file_data_t	*files_data;
+	file_data_t	*file_data;
 	int			ret;
-	int			index;
+	char		*line;
 
-	line = (char *)malloc(sizeof(char));
-	if (!line)
+	file_data = ft_get_file_data(fd, &files_data);
+	file_data->buffer = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	if (!file_data->buffer)
 		return (NULL);
-	line[0] = '\0';
-	while (1)
+	ret = 1;
+	while (ret > 0)
 	{
-		if (!buffer || buffer[0] == '\0')
+		ret = read(fd, file_data->buffer, BUFFER_SIZE);
+		file_data->buffer[ret] = '\0';
+		line = ft_get_line(file_data, 0);
+		if (line)
 		{
-			buffer = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
-			if (!buffer)
-				return (NULL);
-			ret = read(fd, buffer, BUFFER_SIZE);
-			if (ret <= 0)
-			{
-				free(buffer);
-				return (*line ? line : NULL);
-			}
-			buffer[ret] = '\0';
-		}
-		index = ft_check_newline(buffer);
-		if (index >= 0)
-		{
-			line = ft_strjoin(line, ft_strndup(buffer, index));
-			buffer = ft_strndup(buffer + index + 1, ft_strlen(buffer + index + 1));
+			free(file_data->buffer);
 			return (line);
 		}
-		line = ft_strjoin(line, buffer);
-		buffer[0] = '\0';
 	}
+	free(file_data->buffer);
+	return (NULL);
 }

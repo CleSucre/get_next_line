@@ -19,20 +19,20 @@
 # include <fcntl.h>
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 32
+#  define BUFFER_SIZE 2
 # endif
 
 typedef	struct {
-	int		fd;
-	int		offset;
-	char	buffer[BUFFER_SIZE];
-} file_info_t;
+	int					fd;
+	int 				lines_number;
+	int 				last_line_end;
+	char 				*readed_buffer;
+	char				*buffer;
+	struct file_data_t	*next;
+} file_data_t;
 
-char	*get_next_line(int fd);
-char	*ft_get_line(file_info_t data);
-int		ft_strlen(const char *s);
-char	*ft_strndup(char *s1, int n);
-int		ft_check_newline(char *str);
-char	*ft_strjoin(char *s1, char *s2);
+char		*get_next_line(int fd);
+file_data_t *ft_get_file_data(int fd, file_data_t **files_data);
+char		*ft_get_line(file_data_t *file_data, int get_last);
 
 #endif
