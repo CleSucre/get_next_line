@@ -10,6 +10,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v1
 
+      - name: Install 42 norminette
+        run: python3 -m pip install --upgrade pip setuptools & python3 -m pip install norminette
+
       - name: install francinette
         run: bash -c "$(curl -fsSL https://raw.github.com/xicodomingues/francinette/master/bin/install.sh)"
 
