@@ -26,7 +26,7 @@ CC			= gcc
 CFLAGS		= -Wall -Wextra -Werror
 
 test: ${OBJS_TEST}
-	${CC} ${CFLAGS} ${SRCS} ${OBJS_TEST} -o ${NAME}
+	${CC} ${CFLAGS} ${SRCS} ${OBJS_TEST} -o ${NAME}${EXE}
 
 clean:
 	${RM} ${OBJS_TEST}
