@@ -24,7 +24,6 @@
 
 typedef	struct {
 	int					fd;
-	int 				lines_number;
 	int 				last_line_end;
 	char 				*readed_buffer;
 	char				*buffer;
@@ -33,7 +32,7 @@ typedef	struct {
 
 char		*get_next_line(int fd);
 file_data_t *ft_get_file_data(int fd, file_data_t **files_data);
-char		*ft_get_line(file_data_t *file_data, int get_last);
+char		*ft_get_line(file_data_t *file_data, int is_last);
 int			ft_strlen(const char *s);
 
 #endif

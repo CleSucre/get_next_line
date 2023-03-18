@@ -10,11 +10,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v1
 
-      - name: install valgrind
-        run: brew install valgrind
+      - name: install francinette
+        run: bash -c "$(curl -fsSL https://raw.github.com/xicodomingues/francinette/master/bin/install.sh)"
 
       - name: Execute basic tests
         run: make -C test run
 
-      - name: Execute basic tests using valgrind
-        run: valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./test/a.out
+      - name: Execute francinette
+        run: francinette
+
+      - name: Execute francinette strict
+        run: francinette -s

@@ -112,7 +112,6 @@ file_data_t *ft_get_file_data(int fd, file_data_t **files_data)
 	if (!file_data)
 		return (NULL);
 	file_data->fd = fd;
-	file_data->lines_number = 0;
 	file_data->last_line_end = 0;
 	file_data->readed_buffer = NULL;
 	file_data->buffer = NULL;
@@ -121,33 +120,43 @@ file_data_t *ft_get_file_data(int fd, file_data_t **files_data)
 	return (file_data);
 }
 
-char *ft_get_line(file_data_t *file_data, int get_last)
+char *ft_get_line(file_data_t *file_data, int is_last)
 {
 	char	*res;
 	int		i;
+	void	*tmp;
 
 	if (!file_data->readed_buffer)
 		file_data->readed_buffer = ft_strndup(file_data->buffer, BUFFER_SIZE);
 	else
+	{
+		tmp = file_data->readed_buffer;
 		file_data->readed_buffer = ft_strjoin(file_data->readed_buffer, file_data->buffer);
+		free(tmp);
+	}
 	if (!file_data->readed_buffer[file_data->last_line_end])
 		return (NULL);
 	i = file_data->last_line_end;
+	if (!file_data->readed_buffer[i])
+		return (NULL);
 	while (file_data->readed_buffer[i])
 	{
 		if (file_data->readed_buffer[i] == '\n')
-		{
-			file_data->lines_number++;
 			break;
-		}
 		if (!file_data->readed_buffer[++i])
 		{
-			if (get_last)
+			if (is_last)
 				break;
 			return (NULL);
 		}
 	}
 	res = ft_substr(file_data->readed_buffer, file_data->last_line_end, i - file_data->last_line_end);
 	file_data->last_line_end = i + 1;
+	if (is_last)
+	{
+		free(file_data->readed_buffer);
+		file_data->readed_buffer = NULL;
+		file_data->last_line_end = 0;
+	}
 	return (res);
 }
