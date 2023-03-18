@@ -17,10 +17,10 @@ jobs:
         run: bash -c "$(curl -fsSL https://raw.github.com/xicodomingues/francinette/master/bin/install.sh)"
 
       - name: Execute francinette
-        run: francinette
+        run: sudo bash $HOME/francinette/tester.sh
 
       - name: Execute francinette strict
-        run: francinette -s
+        run: sudo bash $HOME/francinette/tester.sh -s
 
       - name: Build basic test
         run: make -C test
