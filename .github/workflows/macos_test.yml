@@ -13,14 +13,14 @@ jobs:
       - name: Install 42 norminette
         run: python3 -m pip install --upgrade pip setuptools && python3 -m pip install norminette
 
-      - name: install francinette
-        run: bash -c "$(curl -fsSL https://raw.github.com/xicodomingues/francinette/master/bin/install.sh)"
+      - name: Install tripouille tester
+        run: git clone git@github.com:Tripouille/gnlTester.git
 
-      - name: Execute francinette
-        run: bash $HOME/francinette/tester.sh
+      - name: Execute 42 norminette
+        run: norminette
 
-      - name: Execute francinette strict
-        run: bash $HOME/francinette/tester.sh -s
+      - name: Execute tripouille tester
+        run: make -C gnlTester a
 
       - name: Build basic test
         run: make -C test
