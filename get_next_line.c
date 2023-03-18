@@ -32,6 +32,9 @@ char	*get_next_line(int fd)
 		if (line)
 		{
 			free(file_data->buffer);
+			file_data->buffer = NULL;
+			free(files_data->readed_buffer);
+			files_data->readed_buffer = NULL;
 			return (line);
 		}
 	}

@@ -3,4 +3,4 @@ project(get_next_line C)
 
 set(CMAKE_C_STANDARD 11)
 
-add_executable(get_next_line get_next_line.c get_next_line_utils.c test/src/tester_utils.c)
+add_executable(get_next_line get_next_line.c get_next_line_utils.c test/get_next_line_test.c test/src/tester_utils.c)
