@@ -1,0 +1,20 @@
+name: MacOS Tests
+on: [push]
+
+jobs:
+  basic-test:
+    name: tests on macos
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+
+      - name: install valgrind
+        run: brew install valgrind
+
+      - name: Execute basic tests
+        run: make -C test run
+
+      - name: Execute basic tests using valgrind
+        run: valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./test/a.out
