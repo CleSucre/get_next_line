@@ -34,7 +34,4 @@ clean:
 fclean: clean
 	${RM} ${NAME}${EXE}
 
-run: test
-	./${NAME}${EXE}
-
 .PHONY: test clean fclean run

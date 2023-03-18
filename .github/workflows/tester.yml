@@ -13,8 +13,11 @@ jobs:
       - name: install francinette
         run: bash -c "$(curl -fsSL https://raw.github.com/xicodomingues/francinette/master/bin/install.sh)"
 
-      - name: Execute basic tests
-        run: make -C test run
+      - name: Build basic test
+        run: make -C test
+
+      - name: Execute basic test
+        run: ./test/a.out
 
       - name: Execute francinette
         run: francinette

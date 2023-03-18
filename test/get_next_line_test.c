@@ -9,7 +9,7 @@ int	main(void)
 	int file_3;
 	int success;
 
-	file_1 = open("data/file_1.txt", O_RDONLY);
+	file_1 = open("test/data/file_1.txt", O_RDONLY);
 	success = 0;
 	success += get_next_line_test(file_1, "hello x y z", "Line 1");
 	success += get_next_line_test(file_1, "world ded a", "Line 2");
@@ -33,9 +33,9 @@ int	main(void)
 		printf("%sget_next_line: All %d tests passed%s\n", BOLDGREEN, success, RESET);
 
 	//bonus part
-	file_1 = open("data/file_1.txt", O_RDONLY);
-	file_2 = open("data/file_2.txt", O_RDONLY);
-	file_3 = open("data/file_3.txt", O_RDONLY);
+	file_1 = open("test/data/file_1.txt", O_RDONLY);
+	file_2 = open("test/data/file_2.txt", O_RDONLY);
+	file_3 = open("test/data/file_3.txt", O_RDONLY);
 	success = 0;
 	success += get_next_line_test(file_3, "Lorem ips", "Line 1 file 3");
 	success += get_next_line_test(file_3, "um dolor", "Line 2 file 3");
