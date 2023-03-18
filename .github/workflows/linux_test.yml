@@ -1,0 +1,17 @@
+name: Linux Tests
+on: [push]
+
+jobs:
+  basic-test:
+    name: tests on linux
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+
+      - name: Build basic test
+        run: make -C test
+
+      - name: Execute basic test
+        run: ./test/a.out
