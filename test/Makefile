@@ -10,7 +10,7 @@ else
 	EXE		= .out
 endif
 
-NAME		= a
+NAME		= get_next_line_test
 
 SRCS		= ..${DIRSEP}get_next_line.c ..${DIRSEP}get_next_line_utils.c
 

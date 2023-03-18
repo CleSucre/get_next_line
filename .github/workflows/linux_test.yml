@@ -14,4 +14,4 @@ jobs:
         run: make -C test
 
       - name: Execute basic test
-        run: cd test && ls && ./a.out
+        run: ls test && ./test/*.out
