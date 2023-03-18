@@ -4,14 +4,14 @@ on: [push]
 jobs:
   basic-test:
     name: tests on macos
-    runs-on: macos-latest
+    runs-on: macos-10.14
 
     steps:
       - name: Checkout
         uses: actions/checkout@v1
 
       - name: Install 42 norminette
-        run: python3 -m venv venv & source venv/bin/activate & pip install norminette
+        run: python3 -m pip install --upgrade pip setuptools && python3 -m pip install norminette
 
       - name: install francinette
         run: bash -c "$(curl -fsSL https://raw.github.com/xicodomingues/francinette/master/bin/install.sh)"
