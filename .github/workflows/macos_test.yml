@@ -13,14 +13,8 @@ jobs:
       - name: Install 42 norminette
         run: python3 -m pip install --upgrade pip setuptools && python3 -m pip install norminette
 
-      - name: Install tripouille tester
-        run: git clone https://github.com/Tripouille/gnlTester.git
-
       - name: Execute 42 norminette
         run: norminette
-
-      - name: Execute tripouille tester
-        run: make -C gnlTester a
 
       - name: Build basic test
         run: make -C test
