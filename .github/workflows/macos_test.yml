@@ -4,7 +4,7 @@ on: [push]
 jobs:
   basic-test:
     name: tests on macos
-    runs-on: macos-catalina-10.15
+    runs-on: macos-catalina-latest
 
     steps:
       - name: Checkout
