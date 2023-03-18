@@ -10,8 +10,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v1
 
+      - name: Install valgrind
+        run: sudo apt-get install valgrind
+
       - name: Build basic test
         run: make -C test
 
       - name: Execute basic test
-        run: ls test && ./test/*.out
+        run: ./test/*.out
+
+      - name: Execute basic test with valgrind
+        run: valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./test/a.out
