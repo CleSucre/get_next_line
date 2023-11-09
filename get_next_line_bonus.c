@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: julthoma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/08 05:52:21 by julthoma          #+#    #+#             */
-/*   Updated: 2023/11/08 05:52:21 by julthoma         ###   ########.fr       */
+/*   Created: 2023/11/07 20:04:00 by julthoma          #+#    #+#             */
+/*   Updated: 2023/11/07 20:04:00 by julthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 void	ft_clean_readed(char **readed)
 {
@@ -41,7 +41,7 @@ void	ft_clean_readed(char **readed)
 
 char	*get_next_line(int fd)
 {
-	static char	*readed;
+	static char	*readed[4096];
 	char		*buffer;
 	int			byte_read;
 	char		*res;
@@ -50,18 +50,18 @@ char	*get_next_line(int fd)
 	if (!buffer)
 		return (NULL);
 	byte_read = BUFFER_SIZE;
-	while (!ft_strchr(readed, '\n') && byte_read == BUFFER_SIZE)
+	while (!ft_strchr(readed[fd], '\n') && byte_read == BUFFER_SIZE)
 	{
 		byte_read = read(fd, buffer, BUFFER_SIZE);
 		if (byte_read == 0 || byte_read == -1)
 			break ;
 		buffer[byte_read] = '\0';
-		ft_realloc(&readed, buffer);
+		ft_realloc(&readed[fd], buffer);
 	}
 	free(buffer);
-	if (readed == NULL)
+	if (readed[fd] == NULL)
 		return (NULL);
-	res = ft_get_line(readed);
-	ft_clean_readed(&readed);
+	res = ft_get_line(readed[fd]);
+	ft_clean_readed(&readed[fd]);
 	return (res);
 }
